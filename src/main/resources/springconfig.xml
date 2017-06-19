@@ -60,5 +60,9 @@
         <constructor-arg ref="productDAO"/>
         <constructor-arg ref="itemDAO"/>
     </bean>
+    <bean id="auctionService" class="edu.mum.cs544.auctions.service.AuctionService">
+        <constructor-arg ref="auctionDAO"/>
+    </bean>
+
 
 </beans>
