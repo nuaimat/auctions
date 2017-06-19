@@ -7,6 +7,7 @@ import edu.mum.cs544.auctions.service.IUserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -16,10 +17,12 @@ import java.time.ZoneId;
  * nuaimat on 6/19/17.
  */
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello! World");
+        String current = new java.io.File( "." ).getCanonicalPath();
+        System.out.println("Current dir:"+current);
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("springconfig.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/springconfig.xml");
         IProductService productService = context.getBean("productService", IProductService.class);
 
         Product p = new Product("Test Prod",
