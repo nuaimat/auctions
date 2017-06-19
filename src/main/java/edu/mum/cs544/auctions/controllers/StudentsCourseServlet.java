@@ -1,5 +1,5 @@
 package edu.mum.cs544.auctions.controllers;
-
+/*
 import edu.mum.cs544.auctions.domain.Student;
 import edu.mum.cs544.auctions.service.StudentService;
 import org.springframework.web.context.WebApplicationContext;
@@ -45,3 +45,5 @@ public class StudentsCourseServlet extends HttpServlet {
 	}
 
 }
+
+*/

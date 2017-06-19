@@ -6,11 +6,14 @@ import edu.mum.cs544.auctions.domain.Item;
 import edu.mum.cs544.auctions.domain.Product;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by Mo Nuaimat <nuaimat@gmail.com>
  * nuaimat on 6/19/17.
  */
 @Service
+@Transactional(value = Transactional.TxType.REQUIRES_NEW)
 public class ProductService implements IProductService {
     private ProductDAO productDAO;
     private ItemDAO itemDAO;

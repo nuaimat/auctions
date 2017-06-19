@@ -1,6 +1,9 @@
 package edu.mum.cs544.auctions.domain;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -10,17 +13,19 @@ import java.util.Date;
  */
 
 @Entity
+@Transactional(value = Transactional.TxType.MANDATORY)
 public class Item {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
     @NotNull
     private Product product;
 
-    // TODO add when ready
-    // private Seller seller;
+    @ManyToOne
+    @NotNull
+    private Seller seller;
 
     private int quantity;
 
@@ -30,10 +35,11 @@ public class Item {
     public Item() {
     }
 
-    public Item(Product product, int quantity, Date created) {
+    public Item(Product product, Seller seller, int quantity, Date created) {
         this.product = product;
         this.quantity = quantity;
         this.created = created;
+        this.seller = seller;
     }
 
     public int getId() {
@@ -76,5 +82,13 @@ public class Item {
                 ", quantity=" + quantity +
                 ", created=" + created +
                 '}';
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }

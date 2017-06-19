@@ -1,6 +1,9 @@
 package edu.mum.cs544.auctions.domain;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Set;
 
@@ -9,6 +12,7 @@ import java.util.Set;
  * nuaimat on 6/19/17.
  */
 @Entity
+@Transactional(value = Transactional.TxType.MANDATORY)
 public class Product {
     public Product(){
 
@@ -22,7 +26,7 @@ public class Product {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
 
