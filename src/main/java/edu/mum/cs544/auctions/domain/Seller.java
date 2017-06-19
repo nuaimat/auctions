@@ -14,6 +14,11 @@ public class Seller extends User {
     public Seller() {
     }
 
+    public Seller(String username, String password, String role, int id) {
+        super(username, password, role);
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -65,4 +65,8 @@
     </bean>
 
 
+    <bean id="studentService" class="edu.mum.cs544.auctions.service.UserService">
+        <constructor-arg ref="userDAO"/>
+    </bean>
+
 </beans>
