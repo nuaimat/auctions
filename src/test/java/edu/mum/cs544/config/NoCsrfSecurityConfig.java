@@ -1,4 +1,5 @@
 package edu.mum.cs544.config;
+/*
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -18,3 +19,4 @@ public class NoCsrfSecurityConfig extends SecurityConfig {
     }
 
 }
+*/
