@@ -1,5 +1,6 @@
 package edu.mum.cs544.auctions;
 
+import edu.mum.cs544.auctions.domain.Item;
 import edu.mum.cs544.auctions.domain.Product;
 import edu.mum.cs544.auctions.service.IProductService;
 import org.springframework.context.ApplicationContext;
@@ -32,6 +33,15 @@ public class Application {
 
         p = productService.saveProduct(p);
         System.out.println(p);
+
+        Item i = productService.saveItem(
+                new Item(p, 33,
+                Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+        );
+
+        System.out.println(i);
+
+
 
     }
 }

@@ -2,6 +2,7 @@ package edu.mum.cs544.auctions.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Mo Nuaimat <nuaimat@gmail.com>
@@ -86,6 +87,7 @@ public class Product {
 
 
     private String img;
+
 
 
     @Override
