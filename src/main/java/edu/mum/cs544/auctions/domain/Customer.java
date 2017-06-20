@@ -15,6 +15,12 @@ public class Customer extends User {
 
     }
 
+    public Customer(String username, String password, String role, int id, int winsCount) {
+        super(username, password, role);
+        this.id = id;
+        this.winsCount = winsCount;
+    }
+
     public int getId() {
         return id;
     }
