@@ -10,11 +10,13 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String password;
     private String role;
+    @OneToOne
+    private Profile profile;
 
     public User() {
     }
@@ -56,4 +58,5 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
 }

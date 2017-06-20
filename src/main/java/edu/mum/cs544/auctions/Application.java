@@ -1,9 +1,6 @@
 package edu.mum.cs544.auctions;
 
-import edu.mum.cs544.auctions.domain.Auction;
-import edu.mum.cs544.auctions.domain.Item;
-import edu.mum.cs544.auctions.domain.Product;
-import edu.mum.cs544.auctions.domain.Seller;
+import edu.mum.cs544.auctions.domain.*;
 import edu.mum.cs544.auctions.service.IAuctionService;
 import edu.mum.cs544.auctions.service.IProductService;
 import edu.mum.cs544.auctions.service.IUserService;
@@ -73,6 +70,16 @@ public class Application {
 
         IAuctionService auctionService = context.getBean("auctionService", IAuctionService.class);
         auctionService.saveAuction(auction);
+
+
+
+        Customer c = new Customer("Subhechha",
+                "bista123",
+                "customer",
+                0
+        );
+        c = userService.saveCustomer(c);
+        System.out.println(c);
 
 
     }

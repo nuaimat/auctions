@@ -6,10 +6,15 @@ import edu.mum.cs544.auctions.dao.UserDAO;
 import edu.mum.cs544.auctions.domain.Customer;
 import edu.mum.cs544.auctions.domain.Seller;
 import edu.mum.cs544.auctions.domain.User;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Subhechha Bista on 6/19/2017.
  */
+@Service
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 public class UserService implements IUserService {
     private CustomerDAO customerDAO;
     private SellerDAO sellerDAO;

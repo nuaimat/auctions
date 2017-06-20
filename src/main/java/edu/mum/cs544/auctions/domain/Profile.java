@@ -1,9 +1,6 @@
 package edu.mum.cs544.auctions.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +11,16 @@ import java.util.List;
 public class Profile {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String fullName;
     private String profileImage;
     @OneToMany
     private List<Address> address = new ArrayList<Address>();
+    @OneToOne
+    private User user;
+
+
     public Profile() {
     }
 
@@ -46,4 +47,12 @@ public class Profile {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+
+    public List<Address> getAddress() { return address; }
+
+    public void setAddress(List<Address> address) { this.address = address; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
 }
