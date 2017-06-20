@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -19,11 +20,12 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @NotNull
+    @Valid
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @NotNull
     private User seller;
 
@@ -34,6 +36,11 @@ public class Item {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+
+    @PrePersist
+    protected void onCreate() {
+        if (created == null) { created = new Date(); }
+    }
 
     public Item() {
     }

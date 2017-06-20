@@ -36,8 +36,9 @@
             </div>
         </div>
         <div class="col-sm-6" id="auc_list_col">
-            <form:form modelAttribute="auction" action="auctions" method="post">
-                <h2>Add an Auction: ${auction.end}</h2>
+            <c:url value="/auctions" var="auctions_endpoint" />
+            <form:form modelAttribute="auction" action="${auctions_endpoint}" method="post">
+                <h2>Add an Auction:</h2>
                 <%--<div class="form-group">
                     <label>Product/Item:</label>
                     <select>
@@ -48,13 +49,33 @@
 
                 </div>--%>
                 <div class="form-group">
-                    <label>Quantity:</label>
-                    <form:input path="item.quantity" type="text" placeholder="yyyy-mm-dd hh:mm:ss" />
-
+                    <form:errors path="*"  cssClass="alert alert-danger alert-dismissable" element="div" />
                 </div>
                 <div class="form-group">
+                    <label>Product Name:</label>
+                    <form:input path="item.product.name" type="text" />
+                </div>
+
+                <div class="form-group">
+                    <label>Description:</label>
+                    <form:textarea path="item.product.description" type="text" rows="3" cols="80" />
+                </div>
+
+                <div class="form-group">
+                    <label>Quantity:</label>
+                    <form:input path="item.quantity" type="number" pattern="[0-9]" step="1"  />
+
+                </div>
+
+                <div class="form-group">
+                    <label>Product Image:</label> TBD later <%--TODO : fix later--%>
+                    <%--<form:input path="item.product.img" type="text" />--%>
+                </div>
+
+                <div class="form-group">
                     <label>End Date:</label>
-                    <form:input path="end" type="text" placeholder="yyyy-mm-dd hh:mm:ss" />
+                    <form:input path="end" type="text" placeholder="yyyy-mm-dd hh:mm:ss"
+                                pattern="([0-9]){4}-([0-9]){2}-([0-9]){2} ([0-9]){2}:([0-9]){2}:([0-9]){2}" />
 
                 </div>
                 <div class="form-group">
@@ -67,26 +88,9 @@
                     </label>
                 </div>
 
-                <%--<table>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <form:input path="end" />
-                            <form:errors path="end" cssClass="error" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Is Active?</td>
-                        <td>
-                            <form:input path="minimumBid"  />
-                            <form:errors path="minimumBid" cssClass="error" />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="2"><input type="submit"/></td>
-                    </tr>
-                </table>--%>
+                <form:button type="submit" class="btn btn-info btn-lg">
+                    Save Auction
+                </form:button>
 
             </form:form>
         </div>

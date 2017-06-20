@@ -12,4 +12,7 @@ public interface IAuctionService {
     Auction getAuction(int aid);
     Auction saveAuction(Auction a);
     List<Auction> getAuctions();
+    List<Auction> getActiveAuctions();
+
+    Auction getEmptyAuction();
 }

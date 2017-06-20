@@ -78,7 +78,10 @@
             </c:forEach>
         </div>
         <div class="col-sm-3">
-            <div class="righttoolbox">
+            <div class="righttoolbox" style="width: 90%;text-align: center">
+                <div class="well" style="text-align: center; width: 100%">
+                    <img src="<c:url value="/resources/images/logo.png" />" >
+                </div>
                 <div id="statistics" class="well" style="text-align: center;">Statistics</div>
             </div>
 

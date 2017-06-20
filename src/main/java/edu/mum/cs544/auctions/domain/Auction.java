@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
@@ -21,15 +22,16 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @NotNull
+    @Valid
     Item item;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @NotNull
     User seller;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     User winner;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,6 +40,18 @@ public class Auction {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date end;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modified;
+
+    @PrePersist
+    protected void onCreate() {
+        if (created == null) { created = new Date(); }
+        modified = new Date();
+    }
 
     boolean isActive;
     boolean isDeleted;
