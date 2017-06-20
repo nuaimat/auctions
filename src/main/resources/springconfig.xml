@@ -61,7 +61,7 @@
         <constructor-arg ref="itemDAO"/>
     </bean>
 
-    <bean id="studentService" class="edu.mum.cs544.auctions.service.UserService">
+    <bean id="userService" class="edu.mum.cs544.auctions.service.UserService">
         <constructor-arg ref="userDAO"/>
     </bean>
 
