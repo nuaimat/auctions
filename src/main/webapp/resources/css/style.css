@@ -187,3 +187,7 @@ body { padding-top: 70px; }
      margin: 0 auto;
      padding: 10px;
 }
+
+.space_left {
+    margin-left: 10px;
+}

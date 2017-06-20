@@ -10,5 +10,6 @@ import java.util.List;
  * nuaimat on 6/19/17.
  */
 public interface ItemDAO extends JpaRepository<Item, Integer> {
-    public List<Item> findBySeller_UsernameLike(String s);
+    List<Item> findBySeller_UsernameLike(String s);
+    List<Item> findBySeller_UsernameLikeAndAuctionIsNull(String s);
 }

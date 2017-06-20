@@ -27,10 +27,10 @@ public class Auction {
 
     @OneToOne
     @NotNull
-    Seller seller;
+    User seller;
 
     @OneToOne
-    Customer winner;
+    User winner;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Past
@@ -118,7 +118,7 @@ public class Auction {
         this.minimumBid = minimumBid;
     }
 
-    public Seller getSeller() {
+    public User getSeller() {
         return seller;
     }
 
@@ -126,7 +126,7 @@ public class Auction {
         this.seller = seller;
     }
 
-    public Customer getWinner() {
+    public User getWinner() {
         return winner;
     }
 

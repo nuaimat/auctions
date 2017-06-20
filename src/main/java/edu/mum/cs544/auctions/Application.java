@@ -48,7 +48,8 @@ public class Application {
                 "test.jpg"
                 );
 
-        p = productService.saveProduct(p);
+        // Professor suggests not to save it here, but when saving an auction/item
+        //p = productService.saveProduct(p);
         System.out.println(p);
         Seller s = new Seller();
         s.setId(1);

@@ -45,7 +45,7 @@ public class AuctionController extends HttpServlet {
         String name = auth.getName(); */
 
         model.addAttribute("auction", auctionService.getAuctions().get(0));
-        model.addAttribute("myItems", productsService.getItemsByUserName("seller1"));
+        model.addAttribute("myItems", productsService.getUnauctionedItemsBySellerUserName("seller1"));
         return "auctions/addAuction";
     }
 }

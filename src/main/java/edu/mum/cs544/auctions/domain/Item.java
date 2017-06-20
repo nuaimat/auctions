@@ -25,7 +25,10 @@ public class Item {
 
     @ManyToOne
     @NotNull
-    private Seller seller;
+    private User seller;
+
+    @OneToOne(mappedBy = "item")
+    private Auction auction;
 
     private int quantity;
 
@@ -84,11 +87,11 @@ public class Item {
                 '}';
     }
 
-    public Seller getSeller() {
+    public User getSeller() {
         return seller;
     }
 
-    public void setSeller(Seller seller) {
+    public void setSeller(User seller) {
         this.seller = seller;
     }
 }

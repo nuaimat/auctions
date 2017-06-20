@@ -41,11 +41,17 @@ public class ProductService implements IProductService {
 
     @Override
     public Item saveItem(Item i) {
+        // maybe save product and item here
         return this.itemDAO.save(i);
     }
 
     @Override
     public List<Item> getItemsByUserName(String user1) {
         return this.itemDAO.findBySeller_UsernameLike(user1);
+    }
+
+    @Override
+    public List<Item> getUnauctionedItemsBySellerUserName(String username){
+        return this.itemDAO.findBySeller_UsernameLikeAndAuctionIsNull(username);
     }
 }

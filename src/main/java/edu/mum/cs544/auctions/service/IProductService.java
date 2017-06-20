@@ -17,4 +17,6 @@ public interface IProductService {
     Item saveItem(Item i);
 
     List<Item> getItemsByUserName(String user1);
+
+    List<Item> getUnauctionedItemsBySellerUserName(String username);
 }

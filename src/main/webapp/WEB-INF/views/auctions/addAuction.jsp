@@ -38,13 +38,18 @@
         <div class="col-sm-6" id="auc_list_col">
             <form:form modelAttribute="auction" action="auctions" method="post">
                 <h2>Add an Auction: ${auction.end}</h2>
-                <div class="form-group">
+                <%--<div class="form-group">
                     <label>Product/Item:</label>
                     <select>
                         <c:forEach items="${myItems}" var="item">
                             <option value="${item.id}">${item.product.name}</option>
                         </c:forEach>
-                    </select><span class="text" ><a href="<c:url value="/item/add" />">Add new item</a> </span>
+                    </select><span class="text space_left" ><a href="<c:url value="/item/add" />">Add new item</a> </span>
+
+                </div>--%>
+                <div class="form-group">
+                    <label>Quantity:</label>
+                    <form:input path="item.quantity" type="text" placeholder="yyyy-mm-dd hh:mm:ss" />
 
                 </div>
                 <div class="form-group">
