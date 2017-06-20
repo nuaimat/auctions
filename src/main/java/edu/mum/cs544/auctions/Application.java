@@ -7,7 +7,11 @@ import edu.mum.cs544.auctions.service.IUserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -17,13 +21,22 @@ import java.time.ZoneId;
  * nuaimat on 6/19/17.
  */
 public class Application {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         System.out.println("Hello! World");
         String current = new java.io.File( "." ).getCanonicalPath();
         System.out.println("Current dir:"+current);
 
+        URL resource = Application.class.getResource("/css/style.css");
+        System.out.println(resource);
+        System.out.println(resource.getPath());
+        //Paths.get(resource.toURI()).toFile();
+
+        System.out.println(Application.class.getResource("/springconfig.xml").getPath());
+
         ApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[]{"WEB-INF/springconfig.xml","WEB-INF/SpringMVC-servlet.xml"}
+                new String[]{
+                        Application.class.getResource("/springconfig.xml").getPath()/*,
+                        Application.class.getResource("/SpringMVC-servlet.xml").getPath()*/}
                 );
 
         IProductService productService = context.getBean("productService", IProductService.class);

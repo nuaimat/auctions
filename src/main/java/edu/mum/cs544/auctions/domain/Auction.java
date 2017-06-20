@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -43,6 +45,7 @@ public class Auction {
     private double minimumBid;
 
     public Auction() {
+        this.end = new Date();
     }
 
     public Auction(Item item, Date start, Date end,
