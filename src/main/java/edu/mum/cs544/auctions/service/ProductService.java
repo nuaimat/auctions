@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by Mo Nuaimat <nuaimat@gmail.com>
@@ -41,5 +42,10 @@ public class ProductService implements IProductService {
     @Override
     public Item saveItem(Item i) {
         return this.itemDAO.save(i);
+    }
+
+    @Override
+    public List<Item> getItemsByUserName(String user1) {
+        return this.itemDAO.findBySeller_UsernameLike(user1);
     }
 }
