@@ -51,21 +51,21 @@ public class Application {
         // Professor suggests not to save it here, but when saving an auction/item
         //p = productService.saveProduct(p);
         System.out.println(p);
-        Seller s = new Seller();
-        s.setId(1);
-        s.setStars(0);
-        s.setUsername("seller1");
-        s.setPassword("seller1");
-        s.setRole("SELLER");
+        User seller = new User();
+        seller.setId(1);
+        seller.setStars(0);
+        seller.setUsername("seller1");
+        seller.setPassword("seller1");
+        seller.setRole("SELLER");
 
         IUserService userService = context.getBean("userService", IUserService.class);
-        s = userService.saveSeller(s);
+        seller = userService.saveUser(seller);
 
-        System.out.println("s: " + s);
+        System.out.println("s: " + seller);
 
         Item i = new Item(
                 p,
-                s,
+                seller,
                 33,
                 Date.from(LocalDateTime.now()
                         .atZone(ZoneId.systemDefault())
@@ -83,7 +83,7 @@ public class Application {
                 true,
                 false,
                 3.44,
-                s,
+                seller,
                 null
         );
 
@@ -93,13 +93,14 @@ public class Application {
 
 
 
-        Customer c = new Customer("Subhechha",
+        User customer = new User("Subhechha",
                 "bista123",
                 "customer",
+                0,
                 0
         );
-        c = userService.saveCustomer(c);
-        System.out.println(c);
+        customer = userService.saveUser(customer);
+        System.out.println(customer);
 
 
     }

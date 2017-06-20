@@ -38,7 +38,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(Product product, Seller seller, int quantity, Date created) {
+    public Item(Product product, User seller, int quantity, Date created) {
         this.product = product;
         this.quantity = quantity;
         this.created = created;

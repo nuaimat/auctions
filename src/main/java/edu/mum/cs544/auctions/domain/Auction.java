@@ -50,7 +50,7 @@ public class Auction {
 
     public Auction(Item item, Date start, Date end,
                    boolean isActive, boolean isDeleted, double minimumBid,
-                   Seller seller, Customer customer
+                   User seller, User customer
                    ) {
         this.item = item;
         this.start = start;
@@ -122,7 +122,7 @@ public class Auction {
         return seller;
     }
 
-    public void setSeller(Seller seller) {
+    public void setSeller(User seller) {
         this.seller = seller;
     }
 
@@ -130,7 +130,7 @@ public class Auction {
         return winner;
     }
 
-    public void setWinner(Customer winner) {
+    public void setWinner(User winner) {
         this.winner = winner;
     }
 }
