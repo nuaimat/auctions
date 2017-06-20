@@ -1,8 +1,11 @@
 package edu.mum.cs544.auctions.domain;
 
+import javax.persistence.Entity;
+
 /**
  * Created by Subhechha Bista on 6/19/2017.
  */
+@Entity
 public class Seller extends User {
 
     private int id;
