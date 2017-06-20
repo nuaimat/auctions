@@ -15,16 +15,20 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private int stars;
+    private int winsCount;
     @OneToOne
     private Profile profile;
 
     public User() {
     }
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, String role, int stars, int winsCount) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.stars = stars;
+        this.winsCount = winsCount;
     }
 
     public int getId() {
@@ -59,4 +63,16 @@ public class User {
         this.role = role;
     }
 
+    public int getStars() { return stars; }
+
+    public void setStars(int stars) { this.stars = stars; }
+
+    public int getWinsCount() { return winsCount; }
+
+    public void setWinsCount(int winsCount) { this.winsCount = winsCount;
+    }
+
+    public Profile getProfile() { return profile; }
+
+    public void setProfile(Profile profile) { this.profile = profile; }
 }
