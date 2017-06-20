@@ -8,23 +8,13 @@ import javax.persistence.Entity;
 @Entity
 public class Seller extends User {
 
-    private int id;
     private int stars;
 
     public Seller() {
     }
 
-    public Seller(String username, String password, String role, int id) {
+    public Seller(String username, String password, String role) {
         super(username, password, role);
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getStars() {

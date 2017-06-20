@@ -8,25 +8,15 @@ import javax.persistence.Entity;
 @Entity
 public class Customer extends User {
 
-    private int id;
     private int winsCount;
 
     public Customer(){
 
     }
 
-    public Customer(String username, String password, String role, int id, int winsCount) {
+    public Customer(String username, String password, String role, int winsCount) {
         super(username, password, role);
-        this.id = id;
         this.winsCount = winsCount;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getWinsCount() {
