@@ -20,7 +20,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<context:component-scan base-package="edu.mum.cs544.auctions" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources
 		in the /WEB-INF/views directory -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,7 +30,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- Forwards requests to the "/addContact" resource to the "addContact" 
+	<!-- Forwards requests to the "/addContact" resource to the "addContact"
 		view -->
 
 	<mvc:view-controller path="/addContact" view-name="addContact" />
@@ -40,7 +40,7 @@
 	<mvc:default-servlet-handler />
 
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving
 		up static resources in the ${webappRoot}/resources/ directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
