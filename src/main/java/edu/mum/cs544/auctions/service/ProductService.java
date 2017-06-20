@@ -6,6 +6,7 @@ import edu.mum.cs544.auctions.domain.Item;
 import edu.mum.cs544.auctions.domain.Product;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 /**
@@ -15,14 +16,12 @@ import javax.transaction.Transactional;
 @Service
 @Transactional(value = Transactional.TxType.REQUIRES_NEW)
 public class ProductService implements IProductService {
+    @Resource
     private ProductDAO productDAO;
+
+    @Resource
     private ItemDAO itemDAO;
 
-
-    public ProductService(ProductDAO productDAO, ItemDAO itemDAO) {
-        this.productDAO = productDAO;
-        this.itemDAO = itemDAO;
-    }
 
     @Override
     public Product getProduct(int pid) {

@@ -10,19 +10,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 /**
  * Created by Subhechha Bista on 6/19/2017.
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public class UserService implements IUserService {
+    @Resource
     private CustomerDAO customerDAO;
+
+    @Resource
     private SellerDAO sellerDAO;
 
-    public UserService(SellerDAO sellerDAO, CustomerDAO customerDAO) {
-        this.customerDAO = customerDAO;
-        this.sellerDAO = sellerDAO;
-    }
 
 
     @Override

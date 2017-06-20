@@ -22,7 +22,10 @@ public class Application {
         String current = new java.io.File( "." ).getCanonicalPath();
         System.out.println("Current dir:"+current);
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/springconfig.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                new String[]{"WEB-INF/springconfig.xml","WEB-INF/SpringMVC-servlet.xml"}
+                );
+
         IProductService productService = context.getBean("productService", IProductService.class);
 
         Product p = new Product("Test Prod",
