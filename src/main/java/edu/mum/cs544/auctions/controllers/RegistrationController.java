@@ -44,6 +44,6 @@ public class RegistrationController {
         }
 
         userService.saveUser(user);
-        return "redirect:/auctions";
+        return "redirect:/login";
     }
 }

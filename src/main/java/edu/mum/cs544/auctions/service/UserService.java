@@ -2,6 +2,8 @@ package edu.mum.cs544.auctions.service;
 
 import edu.mum.cs544.auctions.dao.UserDAO;
 import edu.mum.cs544.auctions.domain.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,8 +31,16 @@ public class UserService implements IUserService {
         return this.userDAO.save(user);
     }
 
-   /* @Override
-    public User checkLoginUser(User user) { return this.userDAO.getByUsernameAndPassword(user.getUsername(),user.getPassword()); }
-*/
+    @Override
+    public User getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        return getUserByUserName(name);
+    }
+
+    @Override
+    public User getUserByUserName( String name) {
+        return userDAO.getByUsername(name);
+    }
 
 }
