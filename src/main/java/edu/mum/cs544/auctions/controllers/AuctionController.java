@@ -47,7 +47,7 @@ public class AuctionController extends HttpServlet {
     private IFileUploadService fileUploadService;
 
     @Autowired
-    Validator validator;
+    private Validator validator;
 
 
     @RequestMapping(value = {"/auctions", "/"}, method = RequestMethod.GET)
@@ -75,17 +75,7 @@ public class AuctionController extends HttpServlet {
     @Secured("ROLE_SELLER")
     @RequestMapping(value = "/auctions/add", method = RequestMethod.GET)
     public String showAddAuction(Model model){
-
-        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); */
-        /*Auction auc = auctionService.getAuctions().get(0);
-        auc.setId(0);
-        auc.getItem().getProduct().setId(0);
-        auc.getItem().setId(0);
-        */
-
         model.addAttribute("auction", auctionService.getEmptyAuction());
-        //model.addAttribute("myItems", productsService.getUnauctionedItemsBySellerUserName("seller1"));
         return "auctions/addAuction";
     }
 
