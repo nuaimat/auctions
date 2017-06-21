@@ -1,5 +1,7 @@
 package edu.mum.cs544.auctions.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -29,7 +31,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
+    @SafeHtml
+    @NotBlank
     private String name;
 
     public int getId() {
@@ -81,6 +84,7 @@ public class Product {
     }
 
     @Lob
+    @SafeHtml
     private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -89,6 +93,11 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
 
+    @PrePersist
+    protected void onCreate() {
+        if (created == null) { created = new Date(); }
+        modified = new Date();
+    }
 
     private String img;
 
