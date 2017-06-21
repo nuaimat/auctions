@@ -32,6 +32,7 @@
         view -->
 
     <mvc:view-controller path="/login" view-name="login"/>
+    <mvc:view-controller path="/logout" view-name="logout"/>
     <mvc:view-controller path="/register" view-name="register"/>
 
     <!-- Lets us find resources (.html etc) through the default servlet -->
