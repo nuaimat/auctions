@@ -15,7 +15,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String streetAddress1;
-    private String getStreetAddress2;
+    private String streetAddress2;
     private String city;
     private int zip;
     private int country;
@@ -39,12 +39,12 @@ public class Address {
         this.streetAddress1 = streetAddress1;
     }
 
-    public String getGetStreetAddress2() {
-        return getStreetAddress2;
+    public String getStreetAddress2() {
+        return streetAddress2;
     }
 
-    public void setGetStreetAddress2(String getStreetAddress2) {
-        this.getStreetAddress2 = getStreetAddress2;
+    public void setStreetAddress2(String streetAddress2) {
+        this.streetAddress2 = streetAddress2;
     }
 
     public String getCity() {

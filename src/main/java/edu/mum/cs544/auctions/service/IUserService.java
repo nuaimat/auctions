@@ -10,5 +10,6 @@ public interface IUserService {
 
     User getUser(int id);
     User saveUser(User user);
+    User checkLoginUser (User user);
 
 }

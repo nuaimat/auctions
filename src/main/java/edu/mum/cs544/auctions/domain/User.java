@@ -17,7 +17,7 @@ public class User {
     private String role;
     private int stars;
     private int winsCount;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Profile profile;
 
     public User() {

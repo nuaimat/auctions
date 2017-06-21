@@ -15,7 +15,7 @@ public class Profile {
     private int id;
     private String fullName;
     private String profileImage;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Address> address = new ArrayList<Address>();
     @OneToOne
     private User user;

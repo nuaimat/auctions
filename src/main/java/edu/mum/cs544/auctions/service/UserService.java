@@ -29,6 +29,8 @@ public class UserService implements IUserService {
         return this.userDAO.save(user);
     }
 
+    @Override
+    public User checkLoginUser(User user) { return this.userDAO.getByUsernameAndPassword(user.getUsername(),user.getPassword()); }
 
 
 }
