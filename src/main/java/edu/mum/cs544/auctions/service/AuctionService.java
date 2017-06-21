@@ -3,10 +3,16 @@ package edu.mum.cs544.auctions.service;
 import edu.mum.cs544.auctions.dao.AuctionDAO;
 import edu.mum.cs544.auctions.dao.UserDAO;
 import edu.mum.cs544.auctions.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.Transient;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +23,9 @@ import java.util.List;
 @Transactional(value = Transactional.TxType.REQUIRES_NEW)
 public class AuctionService implements IAuctionService {
 
+    @Transient
+    private int PAGE_SIZE = 2;
+
     @Resource
     private AuctionDAO auctionDao;
 
@@ -25,7 +34,7 @@ public class AuctionService implements IAuctionService {
 
     @Override
     public Auction getAuction(int aid) {
-        return auctionDao.getOne(aid);
+        return auctionDao.findOne(aid);
     }
 
     @Override
@@ -36,15 +45,16 @@ public class AuctionService implements IAuctionService {
         return this.auctionDao.save(a);
     }
 
-    @Override
+    /*@Override
     public List<Auction> getAuctions() {
         return this.auctionDao.findAll();
-    }
+    }*/
 
     @Override
     public List<Auction> getActiveAuctions() {
         boolean active = true;
-        return auctionDao.findByIsActiveOrderByCreatedDesc(active);
+        PageRequest page = new PageRequest(0, PAGE_SIZE);
+        return auctionDao.findByIsActiveOrderByCreatedDesc(active, page).getContent();
     }
 
     @Override
@@ -72,6 +82,13 @@ public class AuctionService implements IAuctionService {
         auc.setSeller(me);
 
         return auc;
+    }
+
+    @Override
+    public Page<Auction> getActiveAuctionsPage(Integer pageIndex) {
+        boolean active = true;
+        PageRequest page = new PageRequest(pageIndex, 1);
+        return auctionDao.findByIsActiveOrderByCreatedDesc(active, page);
     }
 
 }

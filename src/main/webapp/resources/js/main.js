@@ -32,9 +32,9 @@ $(function () {
             currentAuctionPage = currentAuctionPage + 1;
             console.log("request ajax page " + currentAuctionPage);
             $.ajax({
-                url: "auctions", //this is the submit URL
+                url: "json/auctions", //this is the submit URL
                 type: "GET",
-                data: {page: currentAuctionPage, format: "ajax"},
+                data: {page: currentAuctionPage},
                 success: function (data) {
                     data = $.trim(data);
                     if(data.length < 1){ // empty response

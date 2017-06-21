@@ -25,6 +25,7 @@ public class User {
     private String password;
 
     @NotNull
+    @JsonIgnore
     private String role;
 
     private int stars;

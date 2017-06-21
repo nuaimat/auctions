@@ -2,6 +2,7 @@ package edu.mum.cs544.auctions.service;
 
 import edu.mum.cs544.auctions.domain.Auction;
 import edu.mum.cs544.auctions.domain.User;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public interface IAuctionService {
     Auction getAuction(int aid);
     Auction saveAuction(Auction a);
-    List<Auction> getAuctions();
+    //List<Auction> getAuctions();
     List<Auction> getActiveAuctions();
     List<Auction> getAuctionsBySellerId(User seller);
     List<Auction> getMyBiddingsAuctions(User customer);
 
     Auction getEmptyAuction();
+
+    Page<Auction> getActiveAuctionsPage(Integer page);
 }

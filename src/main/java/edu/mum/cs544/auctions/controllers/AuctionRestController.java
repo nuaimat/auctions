@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sun.jvm.hotspot.debugger.Page;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,8 +27,11 @@ public class AuctionRestController {
     private IUserService userService;
 
     @GetMapping(value = "/json/auctions", produces = "application/json")
-    public List<Auction> getAuctions() {
-        return auctionService.getActiveAuctions();
+    public List<Auction> getAuctions(@RequestParam("page") Integer page) {
+        if(page != null){
+            return auctionService.getActiveAuctionsPage(page).getContent();
+        }
+        return auctionService.getActiveAuctionsPage(0).getContent();
     }
 
     @GetMapping( value = "/json/auctions/{id}" , produces = "application/json")
