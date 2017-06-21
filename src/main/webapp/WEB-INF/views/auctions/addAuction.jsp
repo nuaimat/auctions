@@ -37,7 +37,8 @@
         </div>
         <div class="col-sm-6" id="auc_list_col">
             <c:url value="/auctions" var="auctions_endpoint" />
-            <form:form modelAttribute="auction" action="${auctions_endpoint}" method="post">
+            <form:form modelAttribute="auction" action="${auctions_endpoint}?${_csrf.parameterName}=${_csrf.token}"
+                       method="post" enctype="multipart/form-data">
                 <h2>Add an Auction:</h2>
                 <%--<div class="form-group">
                     <label>Product/Item:</label>
@@ -68,8 +69,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Product Image:</label> TBD later <%--TODO : fix later--%>
-                    <%--<form:input path="item.product.img" type="text" />--%>
+                    <label>Product Image:</label>
+                    <input type="file" name="product_image" />
                 </div>
 
                 <div class="form-group">
@@ -91,7 +92,9 @@
                 <form:button type="submit" class="btn btn-info btn-lg">
                     Save Auction
                 </form:button>
-
+                <%--<input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>--%>
             </form:form>
         </div>
         <div class="col-sm-3">

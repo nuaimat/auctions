@@ -15,7 +15,9 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div><a href="auctions/${auction_obj.id}">Img: ${auction_obj.item.product.img}</a></div>
+                <div style="text-align: center">
+                    <c:url value="/resources/uploads/" var="uploads_folder" />
+                    <img src="${uploads_folder}${auction_obj.item.product.img}" style="width: 80%;" /></div>
                 <div><a href="auctions/${auction_obj.id}">${auction_obj.item.product.name}</a></div>
                 <div>Ends at: ${auction_obj.end}</div>
                 <div>Quantity: ${auction_obj.item.quantity}</div>

@@ -55,13 +55,13 @@ public class AuctionService implements IAuctionService {
         Auction auc = new Auction();
         User me = new User(); // TODO fix this
         me.setId(1);
-        auc.setSeller(me);
+
 
         Item i = new Item();
-        i.setSeller(me);
-
         Product p = new Product();
         i.setProduct(p);
+        auc.setItem(i);
+        auc.setSeller(me);
 
         return auc;
     }

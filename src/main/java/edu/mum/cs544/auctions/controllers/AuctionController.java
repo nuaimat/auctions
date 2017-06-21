@@ -6,6 +6,7 @@ import edu.mum.cs544.auctions.domain.Product;
 import edu.mum.cs544.auctions.domain.User;
 import edu.mum.cs544.auctions.service.AuctionService;
 import edu.mum.cs544.auctions.service.IAuctionService;
+import edu.mum.cs544.auctions.service.IFileUploadService;
 import edu.mum.cs544.auctions.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,16 +15,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Mo Nuaimat <nuaimat@gmail.com>
@@ -39,8 +40,15 @@ public class AuctionController extends HttpServlet {
     @Resource
     private IProductService productsService;
 
+    @Resource
+    private IFileUploadService fileUploadService;
+
     @Autowired
     Validator validator;
+
+    /* file upload */
+
+
 
     /*@RequestMapping("/")
     public String redirectRoot() {
@@ -71,19 +79,23 @@ public class AuctionController extends HttpServlet {
     }
 
     @RequestMapping(value = "/auctions", method = RequestMethod.POST)
-    public String save(@ModelAttribute Auction auction,final BindingResult br){
-
+    public String save(@ModelAttribute Auction auction,
+                       @RequestParam("product_image") MultipartFile product_image,
+                       final BindingResult br) throws IOException {
         // TODO
         User me = new User();
         me.setId(1);
         auction.setSeller(me);
-        auction.getItem().setSeller(me);
+
 
         validator.validate(auction, br);
 
         if(br.hasErrors()){
             return "auctions/addAuction";
         }
+
+        String prodFileName  = fileUploadService.upload(product_image, "product_" + UUID.randomUUID());
+        auction.getItem().getProduct().setImg(prodFileName);
 
         /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); */

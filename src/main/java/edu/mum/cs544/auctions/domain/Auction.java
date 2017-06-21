@@ -66,7 +66,7 @@ public class Auction {
                    boolean isActive, boolean isDeleted, double minimumBid,
                    User seller, User customer
                    ) {
-        this.item = item;
+        setItem(item);
         this.start = start;
         this.end = end;
         this.isActive = isActive;
@@ -138,6 +138,7 @@ public class Auction {
 
     public void setSeller(User seller) {
         this.seller = seller;
+        this.getItem().setSeller(this.seller);
     }
 
     public User getWinner() {
