@@ -1,23 +1,33 @@
 package edu.mum.cs544.auctions.domain;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Subhechha Bista on 6/19/2017.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Transactional(value = Transactional.TxType.MANDATORY)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull
     private String username;
+
+    @NotNull
     private String password;
+
+    @NotNull
     private String role;
+
     private int stars;
     private int winsCount;
-    @OneToOne(cascade = CascadeType.PERSIST)
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Profile profile;
 
     public User() {
@@ -74,5 +84,8 @@ public class User {
 
     public Profile getProfile() { return profile; }
 
-    public void setProfile(Profile profile) { this.profile = profile; }
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+        this.profile.setUser(this);
+    }
 }

@@ -26,13 +26,13 @@
             </p>
         </c:if>
     </div>
-    <div>
+    <div class="form-group">
         <p>
             <label for="username">Username</label>
             <input type="text" id="username" name="username"/>
         </p>
     </div>
-    <div>
+    <div class="form-group">
         <p>
             <label for="password">Password</label>
             <input type="password" id="password" name="password"/>
@@ -41,8 +41,8 @@
     <input type="hidden"
            name="${_csrf.parameterName}"
            value="${_csrf.token}"/>
-    <button type="submit" class="btn">Log in</button>
-    <div><a href="auctions/register">Register</a> </div>
+    <button type="submit" class="btn btn-info btn-lg">Log in</button>
+    <div><a href="<c:url value="/register" />">Register</a> </div>
 </form>
 </div>
 

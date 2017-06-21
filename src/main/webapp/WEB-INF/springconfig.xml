@@ -16,15 +16,15 @@
         <security:intercept-url pattern="/login" access="permitAll"/>
         <security:intercept-url pattern="/auctions" access="permitAll"/>
         <security:intercept-url pattern="/register" access="permitAll"/>
-        <security:intercept-url pattern="/**" access="hasRole('USER')"/>
+        <security:intercept-url pattern="/**" access="hasRole('SELLER')"/>
         <security:form-login login-page="/login" default-target-url="/auctions"/>
         <security:logout logout-success-url="/login"/>
     </security:http>
     <security:authentication-manager>
         <security:authentication-provider>
             <security:jdbc-user-service data-source-ref="dataSource"
-                                        users-by-username-query="SELECT username, password FROM user WHERE username=?"
-                                        authorities-by-username-query="SELECT username,role FROM user WHERE username=?"/>
+                                        users-by-username-query="SELECT username, password, 1 as enabled FROM user WHERE username=?"
+                                        authorities-by-username-query="SELECT username, role FROM user WHERE username=?"/>
         </security:authentication-provider>
     </security:authentication-manager>
 

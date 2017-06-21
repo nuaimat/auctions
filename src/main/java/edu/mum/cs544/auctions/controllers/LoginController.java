@@ -24,12 +24,12 @@ public class LoginController {
     IUserService userService;
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("login", new User());
         return mav;
     }
-
+*/
 
 }

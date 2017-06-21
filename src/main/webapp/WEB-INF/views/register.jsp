@@ -11,33 +11,61 @@
     <jsp:param name="title" value="Login Page"/>
 </jsp:include>
 <c:url var="register_url" value="/register"/>
+
 <div class="container-fluid">
     <form:form id="regForm" modelAttribute="user" action="register" method="post">
-        <div><form:label path="username">Username</form:label></div>
-        <div><form:input path="username" name="username" id="username"/></div>
-        <div></div>
-        <div><form:label path="password">Password</form:label></div>
-        <div><form:password path="password" name="password" id="password"/></div>
-        <div></div>
-        <div><label>Register As</label></div>
-        <div><form:select path="role">
-            <div>
-                <form:option value="SELLER">Seller</form:option>
-                <form:option value="CUSTOMER">Buyer</form:option>
-            </div>
-        </form:select></div>
-        <div></div>
-        <div><form:label path="profile.address[0].streetAddress1">Street Address 1</form:label></div>
-        <div><form:input path="profile.address[0].streetAddress1" name="streetaddress1" id="street1"/></div>
-        <div><form:label path="profile.address[0].streetAddress2">Street Address 2</form:label></div>
-        <div><form:input path="profile.address[0].streetAddress2" name="streetaddress2" id="street2"/></div>
-        <div><form:label path="profile.address[0].zip">Zip</form:label></div>
-        <div><form:input path="profile.address[0].zip" name="zip" id="zip"/></div>
-        <div><form:label path="profile.address[0].city">City</form:label></div>
-        <div><form:input path="profile.address[0].city" name="city" id="city"/></div>
-        <div><form:label path="profile.address[0].country">Country</form:label></div>
-        <div><form:input path="profile.address[0].country" name="city" id="city"/></div>
-        <div></div>
-        <div><form:button id="register" name="register" class="btn">Register</form:button></div>
+        <h2>Register:</h2>
+
+        <div class="form-group">
+            <form:errors path="*"  cssClass="alert alert-danger alert-dismissable" element="div" />
+        </div>
+        <div class="form-group">
+            <label>Username:</label>
+            <form:input path="username" name="username" id="username"/>
+        </div>
+
+        <div class="form-group">
+            <label>Password:</label>
+            <form:password path="password" name="password" id="password"/>
+        </div>
+
+        <div class="form-group">
+            <label>Register As:</label>
+            <form:select path="role">
+                <div>
+                    <form:option value="SELLER">Seller</form:option>
+                    <form:option value="CUSTOMER">Buyer</form:option>
+                </div>
+            </form:select>
+        </div>
+
+        <div class="form-group">
+            <label>Street Address 1:</label>
+            <form:input path="profile.address[0].streetAddress1" name="streetaddress1" id="street1"/>
+        </div>
+
+        <div class="form-group">
+            <label>Street Address 2:</label>
+            <form:input path="profile.address[0].streetAddress2" name="streetaddress2" id="street2"/>
+        </div>
+        <div class="form-group">
+            <label>Zip:</label>
+            <form:input path="profile.address[0].zip" name="zip" id="zip"/>
+        </div>
+
+        <div class="form-group">
+        <label>City:</label>
+        <form:input path="profile.address[0].city" name="city" id="city"/>
+        </div>
+
+        <div class="form-group">
+        <label>Country:</label>
+        <form:input path="profile.address[0].country" name="city" id="city"/>
+        </div>
+
+        <form:button id="register" name="register" class="btn btn-info btn-lg">
+            Register
+        </form:button>
     </form:form>
 </div>
+<jsp:include page="templates/footer_template.jsp"/>
