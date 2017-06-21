@@ -2,10 +2,7 @@ package edu.mum.cs544.auctions.service;
 
 import edu.mum.cs544.auctions.dao.AuctionDAO;
 import edu.mum.cs544.auctions.dao.UserDAO;
-import edu.mum.cs544.auctions.domain.Auction;
-import edu.mum.cs544.auctions.domain.Item;
-import edu.mum.cs544.auctions.domain.Product;
-import edu.mum.cs544.auctions.domain.User;
+import edu.mum.cs544.auctions.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -76,6 +73,5 @@ public class AuctionService implements IAuctionService {
 
         return auc;
     }
-
 
 }
