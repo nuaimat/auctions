@@ -48,24 +48,15 @@ public class Application {
                 "test.jpg"
                 );
 
-        // Professor suggests not to save it here, but when saving an auction/item
-        //p = productService.saveProduct(p);
-        System.out.println(p);
-        User seller = new User();
-        seller.setId(1);
-        seller.setStars(0);
-        seller.setUsername("seller1");
-        seller.setPassword("seller1");
-        seller.setRole("SELLER");
 
         IUserService userService = context.getBean("userService", IUserService.class);
-        seller = userService.saveUser(seller);
+        //s = userService.saveSeller(s);
 
-        System.out.println("s: " + seller);
+      /*  System.out.println("s: " + s);
 
         Item i = new Item(
                 p,
-                seller,
+                s,
                 33,
                 Date.from(LocalDateTime.now()
                         .atZone(ZoneId.systemDefault())
@@ -83,24 +74,15 @@ public class Application {
                 true,
                 false,
                 3.44,
-                seller,
+                s,
                 null
         );
-
+*/
 
         IAuctionService auctionService = context.getBean("auctionService", IAuctionService.class);
-        auctionService.saveAuction(auction);
+       // auctionService.saveAuction(auction);
 
 
-
-        User customer = new User("Subhechha",
-                "bista123",
-                "customer",
-                0,
-                0
-        );
-        customer = userService.saveUser(customer);
-        System.out.println(customer);
 
 
     }

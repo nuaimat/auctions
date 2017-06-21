@@ -1,6 +1,11 @@
 package edu.mum.cs544.auctions.domain;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,16 +13,24 @@ import java.util.List;
  * Created by Subhechha Bista on 6/19/2017.
  */
 @Entity
+@Transactional(value = Transactional.TxType.MANDATORY)
 public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String fullName;
+
     private String profileImage;
-    @OneToMany
+
+    @Email
+    private String email;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @NotNull
     private List<Address> address = new ArrayList<Address>();
+
     @OneToOne
+    @Valid
     private User user;
 
 
@@ -30,14 +43,6 @@ public class Profile {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getProfileImage() {
@@ -55,4 +60,8 @@ public class Profile {
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 }
