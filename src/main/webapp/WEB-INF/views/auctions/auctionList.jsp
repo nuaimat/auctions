@@ -74,7 +74,10 @@
         <div class="col-sm-6" id="auc_list_col">
             <c:forEach var="a" items="${auctions}">
                 <c:set var="auction_obj" value="${a}" scope="request" />
-                <jsp:include page="auctionPanel.jsp" />
+                <c:set var="bid_obj" value="${bid}" scope="request" />
+                <jsp:include page="auctionPanel.jsp">
+                    <jsp:param name="bid_model" value="bid_obj"/>
+                </jsp:include>
             </c:forEach>
         </div>
         <div class="col-sm-3">

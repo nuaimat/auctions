@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="row">
     <div class="panel panel-primary">
         <div class="panel-heading auctiontitle"><span class="text-primary">${auction_obj.item.product.name}</span>
@@ -26,6 +27,7 @@
         </div>
         <div class="panel-footer">
             <div class="row">Description: ${auction_obj.item.product.description}</div>
+            <jsp:include page="bidPanel.jsp"/>
         </div>
     </div>
 </div>

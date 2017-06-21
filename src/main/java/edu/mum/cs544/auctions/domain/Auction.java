@@ -9,7 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mo Nuaimat <nuaimat@gmail.com>
@@ -34,6 +36,10 @@ public class Auction {
     @OneToOne(cascade = CascadeType.PERSIST)
     User winner;
 
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @OrderBy("amount DESC")
+    List<Bid> bids = new ArrayList<Bid>();
+
     @Temporal(TemporalType.TIMESTAMP)
     @Past
     private Date start;
@@ -57,6 +63,9 @@ public class Auction {
     boolean isDeleted;
 
     private double minimumBid;
+
+    @Transient
+    private double currentMinBid;
 
     public Auction() {
         this.end = new Date();
@@ -147,5 +156,17 @@ public class Auction {
 
     public void setWinner(User winner) {
         this.winner = winner;
+    }
+
+    public List<Bid> getBids() { return bids; }
+
+    public void setBids(List<Bid> bids) { this.bids = bids; }
+
+    public double getCurrentMinBid() {
+        return currentMinBid;
+    }
+
+    public void setCurrentMinBid(double currentMinBid) {
+        this.currentMinBid = currentMinBid;
     }
 }
