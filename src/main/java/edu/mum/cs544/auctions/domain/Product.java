@@ -93,7 +93,9 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
 
+
     @PrePersist
+    @PreUpdate
     protected void onCreate() {
         if (created == null) { created = new Date(); }
         modified = new Date();

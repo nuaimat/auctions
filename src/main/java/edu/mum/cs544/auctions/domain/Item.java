@@ -1,5 +1,6 @@
 package edu.mum.cs544.auctions.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     @NotNull
     @Valid
     private Product product;
@@ -30,6 +31,7 @@ public class Item {
     private User seller;
 
     @OneToOne(mappedBy = "item")
+    @JsonIgnore
     private Auction auction;
 
     private int quantity;
@@ -37,7 +39,9 @@ public class Item {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
+
     @PrePersist
+    @PreUpdate
     protected void onCreate() {
         if (created == null) { created = new Date(); }
     }

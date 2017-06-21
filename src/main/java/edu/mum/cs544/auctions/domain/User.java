@@ -1,5 +1,7 @@
 package edu.mum.cs544.auctions.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ public class User {
     private String username;
 
     @NotNull
+    @JsonIgnore
     private String password;
 
     @NotNull
@@ -28,6 +31,7 @@ public class User {
     private int winsCount;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Profile profile;
 
     public User() {

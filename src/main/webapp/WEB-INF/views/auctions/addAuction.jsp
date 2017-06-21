@@ -49,6 +49,9 @@
                     </select><span class="text space_left" ><a href="<c:url value="/item/add" />">Add new item</a> </span>
 
                 </div>--%>
+                <form:input path="id" type="hidden" />
+                <form:input path="item.id" type="hidden" />
+                <form:input path="item.product.id" type="hidden" />
                 <div class="form-group">
                     <form:errors path="*"  cssClass="alert alert-danger alert-dismissable" element="div" />
                 </div>
@@ -65,12 +68,12 @@
                 <div class="form-group">
                     <label>Quantity:</label>
                     <form:input path="item.quantity" type="number" pattern="[0-9]" step="1"  />
-
                 </div>
 
                 <div class="form-group">
                     <label>Product Image:</label>
                     <input type="file" name="product_image" />
+                    <form:input path="item.product.img" type="hidden" />
                 </div>
 
                 <div class="form-group">

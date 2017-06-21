@@ -37,9 +37,6 @@ public class AuctionController extends HttpServlet {
     private IAuctionService auctionService;
 
     @Resource
-    private IProductService productsService;
-
-    @Resource
     private IUserService userService;
 
     @Resource
@@ -48,14 +45,6 @@ public class AuctionController extends HttpServlet {
     @Autowired
     Validator validator;
 
-    /* file upload */
-
-
-
-    /*@RequestMapping("/")
-    public String redirectRoot() {
-        return "redirect:/auctions";
-    }*/
 
     @RequestMapping(value = {"/auctions", "/"}, method = RequestMethod.GET)
     public String getAll(Model model) {
@@ -63,20 +52,22 @@ public class AuctionController extends HttpServlet {
         model.addAttribute("auction", new Auction());
         return "auctions/auctionList";
     }
+
+
+    @Secured("ROLE_CUSTOMER")
+    @RequestMapping(value = "/auctions/my", method = RequestMethod.GET)
+    public String myBiddings(Model model) {
+        User me = userService.getCurrentUser();
+        model.addAttribute("auctions", auctionService.getMyBiddingsAuctions(me));
+        return "auctions/auctionList";
+    }
+
     @Secured("ROLE_SELLER")
     @RequestMapping(value = "/auctions/add", method = RequestMethod.GET)
     public String showAddAuction(Model model){
 
-        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); */
-        /*Auction auc = auctionService.getAuctions().get(0);
-        auc.setId(0);
-        auc.getItem().getProduct().setId(0);
-        auc.getItem().setId(0);
-        */
-
         model.addAttribute("auction", auctionService.getEmptyAuction());
-        model.addAttribute("myItems", productsService.getUnauctionedItemsBySellerUserName("seller1"));
+        //model.addAttribute("myItems", productsService.getUnauctionedItemsBySellerUserName("seller1"));
         return "auctions/addAuction";
     }
 
@@ -95,8 +86,11 @@ public class AuctionController extends HttpServlet {
             return "auctions/addAuction";
         }
 
-        String prodFileName  = fileUploadService.upload(product_image, "product_" + UUID.randomUUID());
-        auction.getItem().getProduct().setImg(prodFileName);
+        if(!product_image.isEmpty()){
+            String prodFileName  = fileUploadService.upload(product_image, "product_" + UUID.randomUUID());
+            auction.getItem().getProduct().setImg(prodFileName);
+        }
+
 
         /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); */
@@ -104,6 +98,64 @@ public class AuctionController extends HttpServlet {
         auctionService.saveAuction(auction);
         return "redirect:/auctions";
     }
+
+
+    @Secured("ROLE_SELLER")
+    @GetMapping(value = "/auctions/sellerList")
+    public String showSellerAuctionList(Model model){
+        model.addAttribute("myAuctions", auctionService.getAuctionsBySellerId(userService.getCurrentUser()));
+        return "auctions/sellerAuctionList";
+    }
+
+    @Secured("ROLE_SELLER")
+    @PostMapping(value = "/auctions/{id}/activate")
+    public String activate(@PathVariable("id") int id) throws IllegalAccessException {
+        Auction a = auctionService.getAuction(id);
+        User me = userService.getCurrentUser();
+
+        if(a.getSeller().getId() == me.getId()){
+            a.setActive(true);
+            auctionService.saveAuction(a);
+        } else {
+            throw new IllegalAccessException("Can't modify auction " + id);
+        }
+
+        return "redirect:/auctions/sellerList";
+    }
+
+
+    @Secured("ROLE_SELLER")
+    @GetMapping(value = "/auctions/{id}/edit")
+    public String editAuction(@PathVariable("id") int id, Model model) throws IllegalAccessException {
+        Auction auc = auctionService.getAuction(id);
+        User me = userService.getCurrentUser();
+        if(auc.getSeller().getId() == me.getId()){
+            model.addAttribute("auction", auc);
+            return "auctions/addAuction";
+        } else {
+            throw new IllegalAccessException("Can't modify auction " + id);
+        }
+
+    }
+
+    @Secured("ROLE_SELLER")
+    @PostMapping(value = "/auctions/{id}/delete")
+    public String softDelete(@PathVariable("id") int id) throws IllegalAccessException {
+        Auction a = auctionService.getAuction(id);
+        User me = userService.getCurrentUser();
+
+        if(a.getSeller().getId() == me.getId()){
+            a.setDeleted(true);
+            a.setActive(false);
+            auctionService.saveAuction(a);
+        } else {
+            throw new IllegalAccessException("Can't delete auction " + id);
+        }
+
+        return "redirect:/auctions/sellerList";
+    }
+
+
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

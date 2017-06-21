@@ -4,6 +4,7 @@ import edu.mum.cs544.auctions.domain.Auction;
 import edu.mum.cs544.auctions.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,4 +13,6 @@ import java.util.List;
  */
 public interface AuctionDAO extends JpaRepository<Auction, Integer> {
     List<Auction> findByIsActiveOrderByCreatedDesc(boolean active);
+    List<Auction> findBySellerIdAndIsDeletedOrderByCreatedDesc(int id, boolean isDeleted);
+
 }

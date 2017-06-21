@@ -1,5 +1,6 @@
 package edu.mum.cs544.auctions.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Profile {
 
     @OneToOne
     @Valid
+    @JsonIgnore
     private User user;
 
 

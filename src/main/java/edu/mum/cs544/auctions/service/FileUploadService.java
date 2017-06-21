@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 @Service
 public class FileUploadService implements IFileUploadService {
-    private final String UPLOADED_FOLDER = "/tmp/auctions/";
+    private final String UPLOADED_FOLDER = "/Users/nuaimat/Dropbox/MUM/courses/EA/workspace/auctions_project/src/main/webapp/resources/uploads/";
     @Override
     public String upload(MultipartFile file, String destfilename) throws IOException {
         try {

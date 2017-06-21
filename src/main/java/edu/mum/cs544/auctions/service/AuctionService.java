@@ -51,6 +51,17 @@ public class AuctionService implements IAuctionService {
     }
 
     @Override
+    public List<Auction> getAuctionsBySellerId(User seller) {
+        return auctionDao.findBySellerIdAndIsDeletedOrderByCreatedDesc(seller.getId(), false);
+    }
+
+    @Override
+    public List<Auction> getMyBiddingsAuctions(User customer) {
+        // TODO needs impl fetch list of auctions that customer has 1. won OR 2. bidded on and still active
+        return auctionDao.findBySellerIdAndIsDeletedOrderByCreatedDesc(customer.getId(), false);
+    }
+
+    @Override
     public Auction getEmptyAuction() {
         Auction auc = new Auction();
         User me = new User();

@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="user" property="principal" />
 <c:set var="rand"><%= java.lang.Math.round(java.lang.Math.random() * 200) %></c:set>
 <!DOCTYPE html>
 <html>
@@ -46,21 +48,17 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav" id="navBarLeftLinks">
                 <li class="home-nav-link active"><a href="<c:url value="/" />">Home</a></li>
-                <li class="order-history-nav-link"><a href="<c:url value="/order_history" />">Order History</a></li>
-                <li class="products-nav-link"><a href="<c:url value="/products" />">Products</a></li>
-                <li class="shopping-cart-nav-link"><a href="<c:url value="/cart" />"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart <span class="badge">${sessionScope.cart_item_count}</span> </a></li>
-                <c:if test="${sessionScope.is_admin}">
-                    <li class="admin-cat-nav-link"><a href="<c:url value="/admin_products?method=manage_catalogues" />">Manage Catalogues</a></li>
-                    <li class="admin-prod-nav-link"><a href="<c:url value="/admin_products?method=manage_products" />">Manage Products</a></li>
-                </c:if>
-                <%--<li><a href="#">Stores</a></li>
-                <li><a href="#">Contact</a></li> --%>
+                <sec:authorize access="hasRole('ROLE_SELLER') and isAuthenticated()">
+                    <li class="order-history-nav-link"><a href="<c:url value="/auctions/sellerList" />">My Sales</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_CUSTOMER') and isAuthenticated()">
+                    <li class="products-nav-link"><a href="<c:url value="/auctions/my" />">My Biddings</a></li>
+                </sec:authorize>
             </ul>
-            <c:if test="${not empty sessionScope.cust_firstname}" var="loggedInUser" scope="request" />
-            <c:set var="firstname" value="${sessionScope.cust_firstname}" scope="request" />
+            <sec:authorize access="isAuthenticated()" var="loggedInUser" />
             <c:choose>
                 <c:when test="${loggedInUser}">
-                    <c:set value="Hello ${firstname}" var="welcome_msg" />
+                    <c:set value="Hello ${user.username}" var="welcome_msg" />
                     <c:set value="#" var="profile_link" />
                 </c:when>
                 <c:otherwise>
