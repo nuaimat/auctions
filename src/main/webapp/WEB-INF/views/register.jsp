@@ -21,12 +21,17 @@
         </div>
         <div class="form-group">
             <label>Username:</label>
-            <form:input path="username" name="username" id="username"/>
+            <form:input path="username" name="username" id="username" required="required"/>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <form:input path="profile.email" name="email" id="email" required="required"/>
         </div>
 
         <div class="form-group">
             <label>Password:</label>
-            <form:password path="password" name="password" id="password"/>
+            <form:password path="password" name="password" id="password" required="required"/>
         </div>
 
         <div class="form-group">

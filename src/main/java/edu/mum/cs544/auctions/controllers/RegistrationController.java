@@ -4,6 +4,7 @@ import edu.mum.cs544.auctions.domain.User;
 import edu.mum.cs544.auctions.service.IUserService;
 import edu.mum.cs544.auctions.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -28,6 +29,9 @@ public class RegistrationController {
     @Autowired
     Validator validator;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView("register");
@@ -42,7 +46,7 @@ public class RegistrationController {
         if(br.hasErrors()){
             return "auctions/register";
         }
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/login";
     }

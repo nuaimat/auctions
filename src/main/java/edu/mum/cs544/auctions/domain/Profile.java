@@ -1,5 +1,7 @@
 package edu.mum.cs544.auctions.domain;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -19,6 +21,9 @@ public class Profile {
     private int id;
 
     private String profileImage;
+
+    @Email
+    private String email;
 
     @OneToMany(cascade = CascadeType.ALL)
     @NotNull
@@ -55,4 +60,8 @@ public class Profile {
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 }

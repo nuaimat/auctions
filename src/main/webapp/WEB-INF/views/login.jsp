@@ -29,13 +29,13 @@
     <div class="form-group">
         <p>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username"/>
+            <input type="text" id="username" name="username" required/>
         </p>
     </div>
     <div class="form-group">
         <p>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password"/>
+            <input type="password" id="password" name="password" required/>
         </p>
     </div>
     <input type="hidden"
