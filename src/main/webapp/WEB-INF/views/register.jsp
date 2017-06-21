@@ -38,8 +38,8 @@
             <label>Register As:</label>
             <form:select path="role">
                 <div>
-                    <form:option value="SELLER">Seller</form:option>
-                    <form:option value="CUSTOMER">Buyer</form:option>
+                    <form:option value="ROLE_SELLER">Seller</form:option>
+                    <form:option value="ROLE_CUSTOMER">Customer</form:option>
                 </div>
             </form:select>
         </div>

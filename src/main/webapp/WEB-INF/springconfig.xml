@@ -3,28 +3,38 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
             http://www.springframework.org/schema/data/jpa
             http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
             http://www.springframework.org/schema/security
-            http://www.springframework.org/schema/security/spring-security.xsd">
+            http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <mvc:annotation-driven/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:component-scan base-package="edu.mum.cs544.auctions"/>
 
+    <security:global-method-security secured-annotations="enabled" />
     <security:http pattern="/resources/**" security="none"/>
     <security:http>
-        <security:intercept-url pattern="/login" access="permitAll"/>
-        <security:intercept-url pattern="/auctions" access="permitAll"/>
-        <security:intercept-url pattern="/register" access="permitAll"/>
-        <security:intercept-url pattern="/**" access="hasRole('SELLER')"/>
+        <security:intercept-url pattern="/login" access="permitAll()"/>
+        <security:intercept-url pattern="/" access="permitAll()"/>
+        <!--<security:intercept-url pattern="/auctions" access="permitAll()"/>-->
+        <security:intercept-url pattern="/register" access="permitAll()"/>
+        <!--<security:intercept-url pattern="/**" access="hasRole('ROLE_CUSTOMER')"/>-->
         <security:form-login login-page="/login" default-target-url="/auctions"/>
-        <security:logout logout-success-url="/login"/>
+        <security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/"/>
     </security:http>
     <security:authentication-manager>
         <security:authentication-provider>
+            <security:password-encoder ref="passwordEncoder" />
             <security:jdbc-user-service data-source-ref="dataSource"
-                                        users-by-username-query="SELECT username, password, 1 as enabled FROM user WHERE username=?"
-                                        authorities-by-username-query="SELECT username, role FROM user WHERE username=?"/>
+                                        users-by-username-query="SELECT username, password, 1 as enabled FROM User WHERE username=?"
+                                        authorities-by-username-query="SELECT username, role FROM User WHERE username=?"/>
         </security:authentication-provider>
     </security:authentication-manager>
 
@@ -74,61 +84,5 @@
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
-
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-    -->
-    <!-- from here -->
-    <!--
-
-
-    <context:component-scan base-package="edu.mum.cs544"/>
-
-    <bean id="productService" class="edu.mum.cs544.auctions.service.ProductService">
-        <constructor-arg ref="productDAO"/>
-        <constructor-arg ref="itemDAO"/>
-    </bean>
-    <bean id="auctionService" class="edu.mum.cs544.auctions.service.AuctionService">
-        <constructor-arg ref="auctionDAO"/>
-    </bean>
-
-
-    <bean id="userService" class="edu.mum.cs544.auctions.service.UserService">
-        <constructor-arg ref="sellerDAO"/>
-        <constructor-arg ref="customerDAO"/>
-    </bean>
--->
-
-    <!--<mvc:annotation-driven />-->
-
-    <!-- needed for security tag lib expression support -->
-
-
-    <!--<security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="subhechha" password="123" authorities="CUSTOMER"/>
-                <security:user name="mo" password="321" authorities="SELLER"/>
-            </security:user-service>
-        </security:authentication-provider>
-    </security:authentication-manager>-->
-
-    <!--<bean id="webexpressionHandler"
-                class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
-
-    <security:http pattern="/" security="none"/>
-    <security:http pattern="/resources/**" security="none"/>
-
-    <security:http use-expressions="true">
-        <security:intercept-url pattern="/login" access="permitAll()"/>
-        <security:intercept-url pattern="/index" access="permitAll()"/>
-        <security:intercept-url pattern="/**" method="POST" access="hasRole('customer')"/>
-        <security:intercept-url pattern="/**" method="GET" access="hasRole('seller')"/>
-        <security:form-login login-page="/login" authentication-failure-url="/auctions"
-                    default-target-url="/auctions"/>
-        <security:logout logout-success-url="/login"/>
-    </security:http>
-
-    -->
 
 </beans>

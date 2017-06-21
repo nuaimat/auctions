@@ -53,7 +53,7 @@ public class AuctionService implements IAuctionService {
     @Override
     public Auction getEmptyAuction() {
         Auction auc = new Auction();
-        User me = new User(); // TODO fix this
+        User me = new User();
         me.setId(1);
 
 

@@ -4,12 +4,10 @@ import edu.mum.cs544.auctions.domain.Auction;
 import edu.mum.cs544.auctions.domain.Item;
 import edu.mum.cs544.auctions.domain.Product;
 import edu.mum.cs544.auctions.domain.User;
-import edu.mum.cs544.auctions.service.AuctionService;
-import edu.mum.cs544.auctions.service.IAuctionService;
-import edu.mum.cs544.auctions.service.IFileUploadService;
-import edu.mum.cs544.auctions.service.IProductService;
+import edu.mum.cs544.auctions.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,8 +35,12 @@ public class AuctionController extends HttpServlet {
 
     @Resource
     private IAuctionService auctionService;
+
     @Resource
     private IProductService productsService;
+
+    @Resource
+    private IUserService userService;
 
     @Resource
     private IFileUploadService fileUploadService;
@@ -61,7 +63,7 @@ public class AuctionController extends HttpServlet {
         model.addAttribute("auction", new Auction());
         return "auctions/auctionList";
     }
-
+    @Secured("ROLE_SELLER")
     @RequestMapping(value = "/auctions/add", method = RequestMethod.GET)
     public String showAddAuction(Model model){
 
@@ -78,15 +80,14 @@ public class AuctionController extends HttpServlet {
         return "auctions/addAuction";
     }
 
+    @Secured("ROLE_SELLER")
     @RequestMapping(value = "/auctions", method = RequestMethod.POST)
     public String save(@ModelAttribute Auction auction,
                        @RequestParam("product_image") MultipartFile product_image,
                        final BindingResult br) throws IOException {
-        // TODO
-        User me = new User();
-        me.setId(1);
-        auction.setSeller(me);
 
+        User me = userService.getCurrentUser();
+        auction.setSeller(me);
 
         validator.validate(auction, br);
 

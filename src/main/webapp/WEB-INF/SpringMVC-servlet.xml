@@ -16,9 +16,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
 
-    <mvc:annotation-driven/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <context:component-scan base-package="edu.mum.cs544.auctions"/>
+
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
         in the /WEB-INF/views directory -->
@@ -33,7 +31,6 @@
     <!-- Forwards requests to the "/addContact" resource to the "addContact"
         view -->
 
-    <mvc:view-controller path="/addContact" view-name="addContact"/>
     <mvc:view-controller path="/login" view-name="login"/>
     <mvc:view-controller path="/register" view-name="register"/>
 
