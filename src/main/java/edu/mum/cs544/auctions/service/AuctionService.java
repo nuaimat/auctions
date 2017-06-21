@@ -88,7 +88,17 @@ public class AuctionService implements IAuctionService {
     public Page<Auction> getActiveAuctionsPage(Integer pageIndex) {
         boolean active = true;
         PageRequest page = new PageRequest(pageIndex, 1);
-        return auctionDao.findByIsActiveOrderByCreatedDesc(active, page);
+        Page<Auction> ret = auctionDao.findByIsActiveOrderByCreatedDesc(active, page);
+        return  ret;
+    }
+
+    @Override
+    public void setCurrentMinBid(Auction a){
+        if(a.getBids().size() > 0){
+            a.setCurrentMinBid(a.getBids().get(0).getAmount() + 0.01);
+        } else {
+            a.setCurrentMinBid(a.getMinimumBid());
+        }
     }
 
 }

@@ -54,7 +54,7 @@ public class AuctionController extends HttpServlet {
     public String getAll(Model model) {
         List<Auction> auctionsList = auctionService.getActiveAuctions();
         for(Auction a:auctionsList){
-            setCurrentMinBid(a);
+            auctionService.setCurrentMinBid(a);
         }
         model.addAttribute("auctions", auctionsList);
 		
@@ -165,7 +165,7 @@ public class AuctionController extends HttpServlet {
     @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
     public String saveBid (@ModelAttribute Bid bid, BindingResult br, @RequestParam int auction_id) {
         Auction a = auctionService.getAuction(auction_id);
-        setCurrentMinBid(a);
+        auctionService.setCurrentMinBid(a);
         User me = userService.getCurrentUser();
         if(bid.getAmount() > a.getCurrentMinBid()){
             bid.setCustomer(me);
@@ -190,13 +190,7 @@ public class AuctionController extends HttpServlet {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
-    private void setCurrentMinBid(Auction a){
-        if(a.getBids().size() > 0){
-            a.setCurrentMinBid(a.getBids().get(0).getAmount() + 0.01);
-        } else {
-            a.setCurrentMinBid(a.getMinimumBid());
-        }
-    }
+
 
 
 }

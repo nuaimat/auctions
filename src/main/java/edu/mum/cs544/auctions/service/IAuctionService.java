@@ -21,4 +21,6 @@ public interface IAuctionService {
     Auction getEmptyAuction();
 
     Page<Auction> getActiveAuctionsPage(Integer page);
+
+    void setCurrentMinBid(Auction a);
 }

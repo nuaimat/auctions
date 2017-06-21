@@ -1,14 +1,17 @@
 package edu.mum.cs544.auctions.controllers;
 
 import edu.mum.cs544.auctions.domain.Auction;
+import edu.mum.cs544.auctions.domain.Bid;
 import edu.mum.cs544.auctions.service.IAuctionService;
 import edu.mum.cs544.auctions.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -42,5 +45,22 @@ public class AuctionRestController {
         }
 
         return new ResponseEntity(a, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/api/auctions", produces = "text/html")
+    public ModelAndView getAuctionsHtml(@RequestParam("page") Integer page) {
+        ModelAndView mav = new ModelAndView("auctions/aucListPanel");
+
+        List<Auction> auctionsList = auctionService.getActiveAuctionsPage(page).getContent();
+
+        for(Auction a:auctionsList){
+            auctionService.setCurrentMinBid(a);
+        }
+
+        mav.addObject("auctions", auctionsList);
+        mav.addObject("auction", new Auction());
+        mav.addObject("bid",new Bid());
+
+        return mav;
     }
 }

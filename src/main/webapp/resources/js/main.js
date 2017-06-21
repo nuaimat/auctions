@@ -32,7 +32,7 @@ $(function () {
             currentAuctionPage = currentAuctionPage + 1;
             console.log("request ajax page " + currentAuctionPage);
             $.ajax({
-                url: "json/auctions", //this is the submit URL
+                url: "api/auctions", //this is the submit URL
                 type: "GET",
                 data: {page: currentAuctionPage},
                 success: function (data) {
@@ -42,7 +42,7 @@ $(function () {
                         busyLoadingAuctions = false;
                         return;
                     }
-
+                    $("#auc_list_col").append($(data));
                     /*$("#rides_list_col").append($(data));
                     $(".add-comment-button").slice(-5)
                         .not(".handler-registered")
