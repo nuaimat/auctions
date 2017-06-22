@@ -71,6 +71,9 @@ public class Auction {
     @Transient
     private String endTS;
 
+    @Transient
+    private String statusAsString;
+
     public Auction() {
         this.end = new Date();
     }
@@ -176,5 +179,17 @@ public class Auction {
 
     public String getEndTS() {
         return ""+(getEnd().getTime() / 1000L);
+    }
+
+    public String getStatusAsString() {
+        statusAsString = "Running";
+        if(!isActive()){
+            statusAsString = "Inactive";
+        }
+        if(end.getTime() < new Date().getTime()){
+            statusAsString = "Ended";
+        }
+
+        return statusAsString;
     }
 }

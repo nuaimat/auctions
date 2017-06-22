@@ -43,7 +43,10 @@
                 <div class="well" style="text-align: center; width: 100%">
                     <img src="<c:url value="/resources/images/logo.png" />" >
                 </div>
-                <div id="statistics" class="well" style="text-align: center;">Statistics</div>
+                <div id="statistics" class="well" style="text-align: center;">Statistics<br />
+                    <span class="text-primary">Auctions: </span>${total_auctions_count} <span class="text-primary">Active:</span> ${active_auctions_count}<br />
+                    <span class="text-primary">Bids:</span> ${total_bid_count}
+                </div>
             </div>
 
         </div>

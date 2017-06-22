@@ -20,4 +20,9 @@ public class BidService implements IBidService {
     public Bid saveBid(Bid b) {
         return this.bidDAO.save(b);
     }
+
+    @Override
+    public int getTotalBidsCount() {
+        return (int) this.bidDAO.count();
+    }
 }

@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 @Service
 public class FileUploadService implements IFileUploadService {
-    private final String UPLOADED_FOLDER = "/Users/nuaimat/Dropbox/MUM/courses/EA/workspace/auctions_project/src/main/webapp/resources/uploads/";
+    private final String UPLOAD_FOLDER = "/tmp/auction_uploads/";
     @Override
     public String upload(MultipartFile file, String destfilename) throws IOException {
         try {
@@ -23,7 +23,7 @@ public class FileUploadService implements IFileUploadService {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String ext = getFileExtension(file.getOriginalFilename());
-            Path path = Paths.get(UPLOADED_FOLDER + destfilename + ext);
+            Path path = Paths.get(UPLOAD_FOLDER + destfilename + ext);
             Files.write(path, bytes);
 
             return destfilename + ext;
@@ -33,6 +33,11 @@ public class FileUploadService implements IFileUploadService {
             throw new IOException(e);
         }
 
+    }
+
+    @Override
+    public String getUploadFolder() {
+        return UPLOAD_FOLDER;
     }
 
     private String getFileExtension(String originalFilename) {

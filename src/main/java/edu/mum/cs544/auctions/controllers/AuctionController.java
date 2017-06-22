@@ -57,6 +57,11 @@ public class AuctionController extends HttpServlet {
 		
         model.addAttribute("auction", new Auction());
 		model.addAttribute("bid",new Bid());
+		model.addAttribute("total_auctions_count", auctionService.getTotalAuctionsCount());
+        model.addAttribute("active_auctions_count", auctionsList.size());
+        model.addAttribute("total_bid_count", bidService.getTotalBidsCount());
+
+
         return "auctions/auctionList";
     }
 
@@ -135,7 +140,13 @@ public class AuctionController extends HttpServlet {
     @Secured("ROLE_SELLER")
     @GetMapping(value = "/auctions/sellerList")
     public String showSellerAuctionList(Model model){
-        model.addAttribute("myAuctions", auctionService.getAuctionsBySellerId(userService.getCurrentUser()));
+        List<Auction> list = auctionService.getAuctionsBySellerId(userService.getCurrentUser());
+        for(Auction a:list){
+            auctionService.setCurrentMinBid(a);
+
+        }
+
+        model.addAttribute("myAuctions", list);
         return "auctions/sellerAuctionList";
     }
 

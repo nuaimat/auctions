@@ -24,7 +24,7 @@
         <div class="panel-body">
             <div class="row">
                 <div style="text-align: center">
-                    <c:url value="/resources/uploads/" var="uploads_folder"/>
+                    <c:url value="/upload/" var="uploads_folder"/>
                     <a href="auctions/${auction_obj.id}"><img src="${uploads_folder}${auction_obj.item.product.img}" style="width: 80%;"/></a>
                 </div>
                 <div class="row" style="margin: 0 0 0">

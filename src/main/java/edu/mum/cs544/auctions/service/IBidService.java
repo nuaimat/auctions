@@ -7,4 +7,6 @@ import edu.mum.cs544.auctions.domain.Bid;
  */
 public interface IBidService {
     Bid saveBid(Bid b);
+
+    int getTotalBidsCount();
 }

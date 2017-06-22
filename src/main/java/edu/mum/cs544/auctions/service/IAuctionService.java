@@ -23,4 +23,6 @@ public interface IAuctionService {
 
     void setCurrentMinBid(Auction a);
     void updateInvalidAuctions();
+
+    int getTotalAuctionsCount();
 }

@@ -10,4 +10,5 @@ import java.io.IOException;
  */
 public interface IFileUploadService {
     String upload(MultipartFile file, String s) throws IOException;
+    String getUploadFolder();
 }

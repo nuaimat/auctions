@@ -125,4 +125,12 @@ public class AuctionService implements IAuctionService {
         }
     }
 
+    @Override
+    public int getTotalAuctionsCount() {
+        return (int) auctionDao.count();
+    }
+
+
+
+
 }
