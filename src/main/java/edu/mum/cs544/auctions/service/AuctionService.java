@@ -120,6 +120,10 @@ public class AuctionService implements IAuctionService {
         logger.info("Running cronjob: updating expired auctions");
         List<Auction> invalidAuctions = auctionDao.findByIsActiveAndEndLessThan(true, new Date());
         for (Auction a : invalidAuctions) {
+            if(a.getBids().size() > 0){
+                // somebody won
+                a.setWinner(a.getBids().get(0).getCustomer());
+            }
             a.setActive(false);
             saveAuction(a);
         }
