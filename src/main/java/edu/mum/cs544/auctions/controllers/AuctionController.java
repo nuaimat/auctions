@@ -66,10 +66,22 @@ public class AuctionController extends HttpServlet {
 
     @Secured("ROLE_CUSTOMER")
     @RequestMapping(value = "/auctions/my", method = RequestMethod.GET)
-    public String myBiddings(Model model) {
+    public String myBiddings(Model model, @RequestParam(required = false) String wins) {
+        boolean w=true;
+        if(wins==null){
+            w=false;
+        }
         User me = userService.getCurrentUser();
-        model.addAttribute("auctions", auctionService.getMyBiddingsAuctions(me));
-        return "auctions/auctionList";
+        List<Auction> auctionsList = auctionService.getMyBiddingsAuctions(me, w);
+        for(Auction a:auctionsList){
+            auctionService.setCurrentMinBid(a);
+        }
+        model.addAttribute("auctions", auctionsList);
+
+        model.addAttribute("auction", new Auction());
+        model.addAttribute("bid",new Bid());
+        model.addAttribute("wins", w);
+        return "auctions/myBids";
     }
 
     @Secured("ROLE_SELLER")
@@ -161,7 +173,7 @@ public class AuctionController extends HttpServlet {
 
         return "redirect:/auctions/sellerList";
     }
-@Secured("ROLE_CUSTOMER")
+    @Secured("ROLE_CUSTOMER")
     @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
     public String saveBid (@ModelAttribute Bid bid, BindingResult br, @RequestParam int auction_id) {
         Auction a = auctionService.getAuction(auction_id);

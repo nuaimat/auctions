@@ -16,11 +16,11 @@ public interface IAuctionService {
     //List<Auction> getAuctions();
     List<Auction> getActiveAuctions();
     List<Auction> getAuctionsBySellerId(User seller);
-    List<Auction> getMyBiddingsAuctions(User customer);
-
+    List<Auction> getMyBiddingsAuctions(User customer, boolean winsonly);
     Auction getEmptyAuction();
 
     Page<Auction> getActiveAuctionsPage(Integer page);
 
     void setCurrentMinBid(Auction a);
+    void updateInvalidAuctions();
 }

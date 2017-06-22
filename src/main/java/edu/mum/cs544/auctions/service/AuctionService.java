@@ -7,12 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,10 +65,14 @@ public class AuctionService implements IAuctionService {
     }
 
     @Override
-    public List<Auction> getMyBiddingsAuctions(User customer) {
+    public List<Auction> getMyBiddingsAuctions(User customer, boolean winsonly) {
         // TODO needs impl fetch list of auctions that customer has 1. won OR 2. bidded on and still active
-        return auctionDao.findBySellerIdAndIsDeletedOrderByCreatedDesc(customer.getId(), false);
+        if(winsonly){
+        return auctionDao.findByWinnerId(customer.getId());
+        }
+        return auctionDao.findByAllAuctionsWithMyBids(customer.getId());
     }
+
 
     @Override
     public Auction getEmptyAuction() {
@@ -98,6 +104,16 @@ public class AuctionService implements IAuctionService {
             a.setCurrentMinBid(a.getBids().get(0).getAmount() + 0.01);
         } else {
             a.setCurrentMinBid(a.getMinimumBid());
+        }
+    }
+
+    @Override
+    @Scheduled(cron = "* * * * * *")
+    public void updateInvalidAuctions() {
+        List<Auction> invalidAuctions = auctionDao.findByIsActiveAndEndLessThan(true, new Date());
+        for (Auction a : invalidAuctions) {
+            a.setActive(false);
+            saveAuction(a);
         }
     }
 
