@@ -4,6 +4,7 @@ import edu.mum.cs544.auctions.domain.Auction;
 import edu.mum.cs544.auctions.domain.Bid;
 import edu.mum.cs544.auctions.service.IAuctionService;
 import edu.mum.cs544.auctions.service.IUserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -29,11 +30,13 @@ public class AuctionRestController {
     private IUserService userService;
 
     @GetMapping(value = "/json/auctions", produces = "application/json")
-    public List<Auction> getAuctions(@RequestParam("page") Integer page) {
-        if(page != null){
-            return auctionService.getActiveAuctionsPage(page).getContent();
+    public List<Auction> getAuctions(@RequestParam(value = "page", required = false) Integer page) {
+        if(page == null){
+            page = 0;
         }
-        return auctionService.getActiveAuctionsPage(0).getContent();
+
+        return auctionService.getActiveAuctionsPage(page).getContent();
+
     }
 
     @GetMapping( value = "/json/auctions/{id}" , produces = "application/json")
@@ -48,10 +51,13 @@ public class AuctionRestController {
     }
 
     @GetMapping(value = "/api/auctions", produces = "text/html")
-    public ModelAndView getAuctionsHtml(@RequestParam("page") Integer page) {
+    public ModelAndView getAuctionsHtml(@RequestParam(value = "page", required = false) Integer page) {
         ModelAndView mav = new ModelAndView("auctions/aucListPanel");
-
-        List<Auction> auctionsList = auctionService.getActiveAuctionsPage(page).getContent();
+        if(page == null){
+            page = 0;
+        }
+        Page<Auction> p = auctionService.getActiveAuctionsPage(page);
+        List<Auction> auctionsList = p.getContent();
 
         for(Auction a:auctionsList){
             auctionService.setCurrentMinBid(a);

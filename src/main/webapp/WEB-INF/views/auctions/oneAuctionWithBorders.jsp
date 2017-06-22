@@ -50,5 +50,4 @@
     </div>
 
 </div>
-<span id="scrollme" style="display: none"></span>
 <jsp:include page="../templates/footer_template.jsp"/>

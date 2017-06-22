@@ -15,9 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -33,9 +33,6 @@ public class AuctionController extends HttpServlet {
 
     @Resource
     private IAuctionService auctionService;
-
-    @Resource
-    private IProductService productsService;
 
     @Resource
     private IUserService userService;
@@ -62,6 +59,22 @@ public class AuctionController extends HttpServlet {
 		model.addAttribute("bid",new Bid());
         return "auctions/auctionList";
     }
+
+
+    @RequestMapping(value = "/auctions/{id}", method = RequestMethod.GET)
+    public String get(Model model, @PathVariable("id") int id) {
+        List<Auction> auctionsList = new ArrayList<>();
+        auctionsList.add(auctionService.getAuction(id));
+        for(Auction a:auctionsList){
+            auctionService.setCurrentMinBid(a);
+        }
+        model.addAttribute("auctions", auctionsList);
+
+        model.addAttribute("auction", new Auction());
+        model.addAttribute("bid",new Bid());
+        return "auctions/oneAuctionWithBorders";
+    }
+
 
 
     @Secured("ROLE_CUSTOMER")

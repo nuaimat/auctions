@@ -68,6 +68,9 @@ public class Auction {
     @Transient
     private double currentMinBid;
 
+    @Transient
+    private String endTS;
+
     public Auction() {
         this.end = new Date();
     }
@@ -169,5 +172,9 @@ public class Auction {
 
     public void setCurrentMinBid(double currentMinBid) {
         this.currentMinBid = currentMinBid;
+    }
+
+    public String getEndTS() {
+        return ""+(getEnd().getTime() / 1000L);
     }
 }

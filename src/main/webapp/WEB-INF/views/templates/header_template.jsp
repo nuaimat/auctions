@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css" />?${rand}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
     <script src="<c:url value="/resources/js/main.js" />?${rand}" ></script>
 
 </head>

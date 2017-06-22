@@ -198,6 +198,6 @@ body { padding-top: 70px; }
     margin-top: 10px;
 }
 
-.panel-body .row {
+.panel-body .row , .panel-footer .row, .panel-footer > div {
     margin: 0 0 0;
 }
