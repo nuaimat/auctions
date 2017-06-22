@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Mo Nuaimat <nuaimat@gmail.com>
@@ -24,6 +25,9 @@ import java.util.List;
 @Service
 @Transactional(value = Transactional.TxType.REQUIRES_NEW)
 public class AuctionService implements IAuctionService {
+
+    @Transient
+    Logger logger = Logger.getLogger(AuctionService.class.getName());
 
     @Transient
     private int PAGE_SIZE = 2;
@@ -111,8 +115,9 @@ public class AuctionService implements IAuctionService {
     }
 
     @Override
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0,30 * * * * *")
     public void updateInvalidAuctions() {
+        logger.info("Running cronjob: updating expired auctions");
         List<Auction> invalidAuctions = auctionDao.findByIsActiveAndEndLessThan(true, new Date());
         for (Auction a : invalidAuctions) {
             a.setActive(false);
