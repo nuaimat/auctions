@@ -87,8 +87,11 @@ public class AuctionService implements IAuctionService {
     @Override
     public Page<Auction> getActiveAuctionsPage(Integer pageIndex) {
         boolean active = true;
-        PageRequest page = new PageRequest(pageIndex, 1);
+        PageRequest page = new PageRequest(pageIndex, PAGE_SIZE);
         Page<Auction> ret = auctionDao.findByIsActiveOrderByCreatedDesc(active, page);
+        if( pageIndex > ret.getTotalPages() ) {
+            System.out.println("Index out of bounds");
+        }
         return  ret;
     }
 

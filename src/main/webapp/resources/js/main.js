@@ -17,12 +17,13 @@ $(function () {
             }
             $('.righttoolbox').css('top',Math.max(rightoolboxtop,$(document).scrollTop()));
         }, 100);
-
-        displayMoreAuctions();
+        if($("#scrollme").length) {
+            displayMoreAuctions();
+        }
     });
 
     var busyLoadingAuctions = false;
-    var currentAuctionPage = 1;
+    var currentAuctionPage = 0;
     function displayMoreAuctions(){
         if(busyLoadingAuctions)
             return;
@@ -42,22 +43,10 @@ $(function () {
                         busyLoadingAuctions = false;
                         return;
                     }
-                    $("#auc_list_col").append($(data));
-                    /*$("#rides_list_col").append($(data));
-                    $(".add-comment-button").slice(-5)
-                        .not(".handler-registered")
-                        .click(addCommentButtonHandler)
-                        .addClass("handler-registered")
-                        .parents(".ride-comments")
-                        .find("input[type='text']")
-                        .keyup(keyupCommentHandler)
-                        .parents(".panel-footer")
-                        .find(".like_post")
-                        .click(likeEventHandler)
-                        .parents(".panel-footer")
-                        .find(".unlike_post")
-                        .click(dislikeEventHandler);*/
+                    console.log($("#auc_list_col"));
+                    console.log($(data));
 
+                    $("#auc_list_col").append($(data));
                     busyLoadingAuctions = false;
                 },
                 error: function (err) {
