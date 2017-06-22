@@ -4,11 +4,12 @@ services:
     build: .
     container_name: e-auction_web
     ports:
-     - "18080:8080"
+      - "18080:8080"
     depends_on:
-     - database
+      - database
     links:
-     - database
+      - database
+    command: ["/root/wait-for-it.sh", "database:13306", "--", "catalina.sh", "run"]
     volumes:
            - ../uploads:/usr/local/tomcat/webapps/uploads/
   database:
@@ -17,6 +18,7 @@ services:
     command: mysqld --user=root --verbose
     volumes:
         - ./otherfiles/e-auctions_data.sql:/docker-entrypoint-initdb.d/e-auctions_data.sql
+        - eauction_mysql_datavolume:/var/lib/mysql
     ports:
         - "13306:3306"
     environment:
@@ -26,3 +28,6 @@ services:
         MYSQL_ROOT_PASSWORD: "root"
         MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
+volumes:
+  eauction_mysql_datavolume:
+    external: true
