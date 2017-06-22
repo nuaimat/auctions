@@ -36,9 +36,9 @@ public class Auction {
     @OneToOne(cascade = CascadeType.PERSIST)
     User winner;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "auction")
     @OrderBy("amount DESC")
-    List<Bid> bids = new ArrayList<Bid>();
+    List<Bid> bids;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Past

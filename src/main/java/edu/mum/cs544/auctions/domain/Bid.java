@@ -18,7 +18,7 @@ public class Bid {
     @NotNull
     User customer;
 
-    @OneToOne
+    @ManyToOne
     @NotNull
     Auction auction;
 

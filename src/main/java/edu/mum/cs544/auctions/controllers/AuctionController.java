@@ -166,7 +166,9 @@ public class AuctionController extends HttpServlet {
     public String saveBid (@ModelAttribute Bid bid, BindingResult br, @RequestParam int auction_id) {
         Auction a = auctionService.getAuction(auction_id);
         setCurrentMinBid(a);
+        User me = userService.getCurrentUser();
         if(bid.getAmount() > a.getCurrentMinBid()){
+            bid.setCustomer(me);
             bid.setAuction(a);
             validator.validate(bid, br);
             if(br.hasErrors()){
