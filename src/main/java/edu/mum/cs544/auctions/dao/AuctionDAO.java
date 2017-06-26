@@ -24,7 +24,7 @@ public interface AuctionDAO extends PagingAndSortingRepository<Auction, Integer>
     List<Auction> findByWinnerId(int id);
 
 
-    @Query(value = "SELECT DISTINCT a.* FROM auction a JOIN bid b ON a.id=b.auction_id\n" +
+    @Query(value = "SELECT DISTINCT a.* FROM Auction a JOIN Bid b ON a.id=b.auction_id\n" +
             "WHERE b.customer_id=?1 AND a.isActive AND a.end > now()\n" +
             "ORDER BY a.end - now()  ASC" +
             "\n", nativeQuery = true)
