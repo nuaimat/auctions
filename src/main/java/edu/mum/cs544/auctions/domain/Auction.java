@@ -80,7 +80,7 @@ public class Auction {
 
     public Auction(Item item, Date start, Date end,
                    boolean isActive, boolean isDeleted, double minimumBid,
-                   User seller, User customer
+                   User seller, User winner
                    ) {
         setItem(item);
         this.start = start;
@@ -89,7 +89,7 @@ public class Auction {
         this.isDeleted = isDeleted;
         this.minimumBid = minimumBid;
         this.seller = seller;
-        this.winner = customer;
+        this.winner = winner;
     }
 
     public int getId() {
@@ -191,5 +191,25 @@ public class Auction {
         }
 
         return statusAsString;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Auction)) return false;
+
+        Auction auction = (Auction) o;
+
+        if (getId() != auction.getId()) return false;
+        if (isActive() != auction.isActive()) return false;
+        return isDeleted() == auction.isDeleted();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (isActive() ? 1 : 0);
+        result = 31 * result + (isDeleted() ? 1 : 0);
+        return result;
     }
 }

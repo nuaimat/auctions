@@ -30,7 +30,7 @@ public class AuctionService implements IAuctionService {
     Logger logger = Logger.getLogger(AuctionService.class.getName());
 
     @Transient
-    private int PAGE_SIZE = 2;
+    private int PAGE_SIZE = 4;
 
     @Resource
     private AuctionDAO auctionDao;
@@ -125,6 +125,7 @@ public class AuctionService implements IAuctionService {
                 a.setWinner(a.getBids().get(0).getCustomer());
             }
             a.setActive(false);
+            System.out.println("Deactivating auction #" + a.getId());
             saveAuction(a);
         }
     }
@@ -133,7 +134,6 @@ public class AuctionService implements IAuctionService {
     public int getTotalAuctionsCount() {
         return (int) auctionDao.count();
     }
-
 
 
 

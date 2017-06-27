@@ -1,6 +1,6 @@
 package edu.mum.cs544.config;
-/*
 
+/*
 import org.junit.Before;
 import org.springframework.security.web.FilterChainProxy;
 
@@ -18,5 +18,5 @@ public abstract class WebSecurityConfigurationAware extends WebAppConfigurationA
         this.mockMvc = webAppContextSetup(this.wac)
                 .addFilters(this.springSecurityFilterChain).build();
     }
-}
-*/
+}*/
+

@@ -1,6 +1,5 @@
 package edu.mum.cs544.config;
 /*
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,9 +16,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @WebAppConfiguration
-@ContextConfiguration(classes = {
-        ApplicationConfig.class
-})
+@ContextConfiguration(locations = {
+        "file:src/test.xml"
+        })
 public abstract class WebAppConfigurationAware {
 
     @Inject
@@ -31,5 +30,5 @@ public abstract class WebAppConfigurationAware {
         this.mockMvc = webAppContextSetup(this.wac).build();
     }
 
-}
-*/
+}*/
+
