@@ -9,7 +9,7 @@ services:
       - database
     links:
       - database
-    command: ["/root/wait-for-it.sh", "database:13306", "--", "catalina.sh", "run"]
+    command: ["/root/wait-for-it.sh", "database:3306", "--", "catalina.sh", "run"]
     volumes:
            - ../uploads:/usr/local/tomcat/webapps/uploads/
   database:
