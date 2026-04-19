@@ -3,10 +3,10 @@ package edu.mum.cs544.auctions.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -36,7 +36,6 @@ public class Item {
 
     private int quantity;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * Created by Subhechha Bista on 6/19/2017.
@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 
     @Override
     public User getUser(int id) {
-        return userDAO.findOne(id);
+        return userDAO.findById(id).orElse(null);
     }
 
     @Override

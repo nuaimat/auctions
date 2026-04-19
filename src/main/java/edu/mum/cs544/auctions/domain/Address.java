@@ -1,11 +1,11 @@
 package edu.mum.cs544.auctions.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.transaction.Transactional;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.transaction.Transactional;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Created by Subhechha Bista on 6/19/2017.

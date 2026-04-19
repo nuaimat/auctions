@@ -1,11 +1,10 @@
 package edu.mum.cs544.auctions.domain;
 
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
-import javax.transaction.Transactional;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.Set;
 
@@ -31,7 +30,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @SafeHtml
     @NotBlank
     private String name;
 
@@ -84,13 +82,10 @@ public class Product {
     }
 
     @Lob
-    @SafeHtml
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
 
 

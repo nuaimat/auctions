@@ -6,8 +6,8 @@ import edu.mum.cs544.auctions.domain.Item;
 import edu.mum.cs544.auctions.domain.Product;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
+import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getProduct(int pid) {
-        return productDAO.findOne(pid);
+        return productDAO.findById(pid).orElse(null);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Item getItem(int i) {
-        return this.itemDAO.findOne(i);
+        return this.itemDAO.findById(i).orElse(null);
     }
 
     @Override

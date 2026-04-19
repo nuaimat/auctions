@@ -2,11 +2,11 @@ package edu.mum.cs544.auctions.domain;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -40,17 +40,13 @@ public class Auction {
     @OrderBy("amount DESC")
     List<Bid> bids;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Past
     private Date start;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date end;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date modified;
 
     @PrePersist

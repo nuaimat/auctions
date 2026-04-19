@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Mo Nuaimat <nuaimat@gmail.com>
  * nuaimat on 6/19/17.
  */
-public interface AuctionDAO extends PagingAndSortingRepository<Auction, Integer> {
+public interface AuctionDAO extends JpaRepository<Auction, Integer> {
     Page<Auction> findByIsActiveOrderByCreatedDesc(boolean active, Pageable p);
     List<Auction> findBySellerIdAndIsDeletedOrderByCreatedDesc(int id, boolean isDeleted);
     List<Auction> findByWinnerId(int id);

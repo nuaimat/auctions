@@ -10,9 +10,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.persistence.Transient;
-import javax.transaction.Transactional;
+import jakarta.annotation.Resource;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +40,7 @@ public class AuctionService implements IAuctionService {
 
     @Override
     public Auction getAuction(int aid) {
-        return auctionDao.findOne(aid);
+        return auctionDao.findById(aid).orElse(null);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AuctionService implements IAuctionService {
     @Override
     public List<Auction> getActiveAuctions() {
         boolean active = true;
-        PageRequest page = new PageRequest(0, PAGE_SIZE);
+        PageRequest page = PageRequest.of(0, PAGE_SIZE);
         return auctionDao.findByIsActiveOrderByCreatedDesc(active, page).getContent();
     }
 
@@ -97,7 +97,7 @@ public class AuctionService implements IAuctionService {
     @Override
     public Page<Auction> getActiveAuctionsPage(Integer pageIndex) {
         boolean active = true;
-        PageRequest page = new PageRequest(pageIndex, PAGE_SIZE);
+        PageRequest page = PageRequest.of(pageIndex, PAGE_SIZE);
         Page<Auction> ret = auctionDao.findByIsActiveOrderByCreatedDesc(active, page);
         if( pageIndex > ret.getTotalPages() ) {
             System.out.println("Index out of bounds");

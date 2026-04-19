@@ -2,9 +2,9 @@ package edu.mum.cs544.auctions.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import javax.transaction.Transactional;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Created by Subhechha Bista on 6/21/2017.
